@@ -1,0 +1,34 @@
+[Distribution]
+Distribution=ubuntu
+Release=eoan
+Repositories=main universe multiverse
+Mirrors=
+	http://mirror.enzu.com/ubuntu/
+	http://mirror.math.princeton.edu/pub/ubuntu/
+	http://mirrors.xtom.com/ubuntu/
+	http://mirror.cs.unm.edu/archive/
+	http://mirror.nodesdirect.com/ubuntu/
+
+[Output]
+Output=image.raw
+Hostname=rabbitmq
+
+Bootable=true
+Format=gpt_ext4
+Compress=false
+
+[Packages]
+
+Packages=
+	dropbear
+	docker.io
+	docker-compose
+	net-tools
+	iproute2
+
+[Partitions]
+RootSize=4G
+ESPSize=1G
+SwapSize=1G
+HomeSize=1G
+SrvSize=4G

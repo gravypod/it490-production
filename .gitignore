@@ -1,0 +1,11 @@
+images/*.tar
+
+servers/*/mkosi.cache/
+servers/*/mkosi.extra/srv/containers/
+
+credentials/*
+*.raw
+.cache/
+
+*.vmdk
+.mkosi-*/

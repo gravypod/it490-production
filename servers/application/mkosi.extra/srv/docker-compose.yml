@@ -1,0 +1,11 @@
+version: "2.2"
+services:
+  gateway:
+    image: it490/gateway
+    restart: on-failure
+    ports:
+      - "80:80"
+    environment:
+      APP_QUEUE_URL: "amqp://root:root@rabbitmq.lan:5672/%2F"
+      APP_QUEUE_TOPIC_APP: "requests-app"
+      APP_JWT_TOKEN: "helloworld"

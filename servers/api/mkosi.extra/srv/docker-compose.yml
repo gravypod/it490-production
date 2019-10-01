@@ -1,0 +1,8 @@
+version: "2.2"
+services:
+  imdbscraper:
+    image: it490/imdbscraper
+    restart: on-failure
+    environment:
+      APP_QUEUE_URL: "amqp://root:root@rabbitmq.lan:5672/%2F"
+      APP_QUEUE_TOPIC_APP: "requests-app"

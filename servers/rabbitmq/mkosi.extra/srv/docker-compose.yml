@@ -1,0 +1,16 @@
+version: "2.2"
+services:
+  rabbitmq:
+    image: it490/rabbitmq
+    ports:
+      - "80:15672"
+      - "5672:5672"
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: root
+
+volumes:
+  rabbitmq:
+
