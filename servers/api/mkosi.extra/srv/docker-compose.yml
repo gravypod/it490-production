@@ -6,3 +6,9 @@ services:
     environment:
       APP_QUEUE_URL: "amqp://root:root@rabbitmq.lan:5672/%2F"
       APP_QUEUE_TOPIC_APP: "requests-app"
+  weatherscraper:
+    image: it490/weatherscraper
+    restart: on-failure
+    environment:
+      APP_QUEUE_URL: "amqp://root:root@rabbitmq.lan:5672/%2F"
+      APP_QUEUE_TOPIC_APP: "requests-weather"

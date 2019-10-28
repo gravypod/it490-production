@@ -6,6 +6,7 @@ services:
     environment:
       APP_QUEUE_URL: "amqp://root:root@rabbitmq.lan:5672/%2F"
       APP_QUEUE_TOPIC_APP: "requests-app"
+      APP_QUEUE_TOPIC_WEATHER: "requests-weather"
       APP_DATABASE_URL: "mysql+pymysql://app:app@mysql:3306/app"
 
   mysql:
