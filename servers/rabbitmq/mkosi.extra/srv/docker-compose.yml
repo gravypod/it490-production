@@ -10,6 +10,13 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: root
       RABBITMQ_DEFAULT_PASS: root
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://elk.lan:5000"
+        syslog-format: "rfc3164"
+        syslog-facility: "daemon"
+        tag: "rabbitmq"
 
 volumes:
   rabbitmq:

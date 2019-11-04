@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo "Creating IT490 Service"
+systemctl enable it490.service 
+
+systemctl enable systemd-networkd.service
+systemctl enable systemd-resolved.service
+
+

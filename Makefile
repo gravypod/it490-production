@@ -30,7 +30,7 @@ images/database-mariadb-10-4-8-bionic.tar:
 servers/%/image.raw: images/database-mariadb-10-4-8-bionic.tar images/database-it490-app.tar images/application-it490-gateway.tar images/rabbitmq-it490-rabbitmq.tar images/api-it490-imdbscraper.tar images/api-it490-weatherscraper.tar
 	# Copy in all source containers
 	mkdir -p servers/$*/mkosi.extra/srv/containers/
-	cp images/$*-*.tar servers/$*/mkosi.extra/srv/containers/
+	cp images/$*-*.tar servers/$*/mkosi.extra/srv/containers/ || true
 	# Build image
 	sudo mkosi --force --directory servers/$*
 
@@ -44,12 +44,13 @@ servers/%/image.raw: images/database-mariadb-10-4-8-bionic.tar images/database-i
 	VBoxManage createvm --name vm-$* --ostype Ubuntu_64 --register
 	VBoxManage modifyvm vm-$* --firmware efi
 	VBoxManage modifyvm vm-$* --nic1 bridged --bridgeadapter1 "$ETHERNET_INTERFACE"
-	VBoxManage modifyvm vm-$* --memory 1024
+	VBoxManage modifyvm vm-$* --memory 2048
+	VBoxManage modifyvm vm-$* --cpus 2
 	VBoxManage storagectl vm-$* --name "SATA Controller" --add sata --controller IntelAhci
 	VBoxManage storageattach vm-$* --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $*.vmdk
 
 .PHONY: vms
-vms: rabbitmq.vmdk database.vmdk application.vmdk api.vmdk
+vms: rabbitmq.vmdk database.vmdk application.vmdk api.vmdk elk.vmdk
 	echo "Configured all VMs"
 
 # clean
@@ -72,4 +73,5 @@ clean:
 	VBoxManage unregistervm --delete vm-database    || true
 	VBoxManage unregistervm --delete vm-application || true
 	VBoxManage unregistervm --delete vm-api         || true
+	VBoxManage unregistervm --delete vm-elk         || true
 

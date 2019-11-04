@@ -9,3 +9,11 @@ services:
       APP_QUEUE_URL: "amqp://root:root@rabbitmq.lan:5672/%2F"
       APP_QUEUE_TOPIC_APP: "requests-app"
       APP_JWT_TOKEN: "helloworld"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://elk.lan:5000"
+        syslog-format: "rfc3164"
+        syslog-facility: "daemon"
+        tag: "gateway"
+

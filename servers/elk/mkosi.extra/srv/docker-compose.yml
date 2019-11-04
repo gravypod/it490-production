@@ -1,0 +1,39 @@
+version: "2.2"
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
+    volumes:
+      - "/srv/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+      - "elk:/usr/share/elasticsearch/data"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.4.1
+    volumes:
+      - "/srv/config/logstash.yml:/usr/share/logstash/config/logstash.yml"
+      - "/srv/config/pipeline:/usr/share/logstash/pipeline"
+    ports:
+      - "5000:5000"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.4.1
+    volumes:
+      - "/srv/config/kibana.yml:/usr/share/kibana/config/kibana.yml"
+    ports:
+      - "80:5601"
+    depends_on:
+      - elasticsearch
+
+volumes:
+  elk:
+

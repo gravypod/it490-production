@@ -1,0 +1,17 @@
+[Unit]
+Description=IT490 Containers
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+
+# Load docker container from disk
+TimeoutSec=900
+
+# Compose up
+ExecStart=/usr/bin/docker-compose -f /srv/docker-compose.yml up
+ExecStop=/usr/bin/docker-compose  -f /srv/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target
